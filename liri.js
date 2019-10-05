@@ -42,9 +42,32 @@ function concertThis() {
 };
 
 function movieThis() {
-    let URL = 
-}
-
+    if (!userSearch) {
+        userSearch = "Mr Nobody";
+    }
+        let URL = "http://www.omdbapi.com/?t=" + userSearch + "&apikey=163f2aff";
+        // console.log(URL);
+    axios.get(URL).then(function(response) {
+        let movieData = response.data;
+        // console.log(movieData);
+        console.log("Title: " + movieData.Title);
+        console.log("Year: " + movieData.Year);
+        console.log("IMDB Rating: " + movieData.Ratings[0].Value);
+        console.log("Rotten Tomatoes Rating: " + movieData.Ratings[1].Value);
+        console.log("Country: " + movieData.Country);
+        console.log("Language: " + movieData.Language);
+        console.log("Plot: " + movieData.Plot);
+        console.log("Actors: " + movieData.Actors);
+    });
+};
+    //    * Title of the movie.
+    //    * Year the movie came out.
+    //    * IMDB Rating of the movie.
+    //    * Rotten Tomatoes Rating of the movie.
+    //    * Country where the movie was produced.
+    //    * Language of the movie.
+    //    * Plot of the movie.
+    //    * Actors in the movie.
 
 // this should determing what the user will actually search, and each option is its own function
 function userAction(userPath, userSearch) {
