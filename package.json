@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/SantiagoTZ8899/LiriApp/issues"
   },
-  "homepage": "https://github.com/SantiagoTZ8899/LiriApp#readme"
+  "homepage": "https://github.com/SantiagoTZ8899/LiriApp#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "moment": "^2.24.0"
+  }
 }
