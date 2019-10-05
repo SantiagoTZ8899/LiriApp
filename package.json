@@ -1,0 +1,20 @@
+{
+  "name": "LiriApp",
+  "version": "1.0.0",
+  "description": "Liri App with APIs from Spotify, OMDB, BandsInTown",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SantiagoTZ8899/LiriApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SantiagoTZ8899/LiriApp/issues"
+  },
+  "homepage": "https://github.com/SantiagoTZ8899/LiriApp#readme"
+}
