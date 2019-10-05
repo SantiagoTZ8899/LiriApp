@@ -5,10 +5,10 @@ exports.spotify = {
   secret: process.env.SPOTIFY_SECRET
 };
 
-exports.OMDB = {
+exports.omdb = {
     id: process.env.OMDB_ID,
 };
 
-exports.OMDB = {
-    id: process.env.OMDB_ID,
+exports.bandsintown = {
+    id: process.env.BANDSINTOWN_ID,
 };

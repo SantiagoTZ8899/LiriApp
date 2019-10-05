@@ -1,3 +1,4 @@
+// require .env file - gitignored
 require("dotenv").config();
 
 var keys = require("./keys.js");
