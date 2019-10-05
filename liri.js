@@ -1,7 +1,7 @@
 // require .env file - gitignored
 require("dotenv").config();
 
-// require Axios
+// require Axios - to access APIs
 let axios = require("axios");
 
 // require Moment - for dates and time
@@ -14,14 +14,10 @@ let fs = require("fs");
 let keys = require("./keys.js");
 
 // Initialize Spotify
-let Spotify = require("node-spotify-api");
-let spotify = new Spotify(keys.spotify);
+let spotify = require("node-spotify-api");
+// let spotify = new Spotify(keys.spotify);
 
-// OMDB and Bands In Town APIs - from keys.js - provided
-// let omdb = require(keys.omdb);
-// let bandsintown = require(keys.bandsintown);
-
-// taki in arguments
+// taking in arguments
 let userPath = process.argv[2];
 let userSearch = process.argv.slice(3).join(" ");
 
@@ -39,6 +35,28 @@ function concertThis() {
         }
         // console.log(concertData)
     });
+};
+
+function spotifyThisSong() {
+    if (!userSearch) {
+        userSearch = "The Sign Ace of Base";
+
+        spotify.search( {
+            type: "track",
+            query: userSearch
+        },
+        function(error, data) {
+            if (error) {
+                console.log("Derp, there was an error" + error);
+                    return;
+            }
+            let songResults = data.tracks.items;
+            for (let i = 0; i < songResults.length; i++) {
+                console.log(i);
+            }
+            console.log(songResults);
+        } )
+    }
 };
 
 function movieThis() {
