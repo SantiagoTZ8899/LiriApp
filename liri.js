@@ -49,16 +49,16 @@ userAction(userPath, userSearch);
 
 
 function concertThis() {
-// "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"}
+    let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+        console.log(URL);
 
-function spotifyThisSong() {
-    
-}
-
-function movieThis() {
-
-}
-
-function doWhatItSays() {
-
+    axios.get(URL).then(function(response) {
+        let concertData = [
+            "Artists: " + response.data.lineup,
+            "Venue: " + response.data.venue,
+            "Venue Location: " + response.data.city,
+            "Event Date: " + moment(concertData.response.data.datetime).format("MM/DD/YYYY hh:00 A")
+        ].join("\n\n");
+        console.log(concertDate)
+    });
 }
