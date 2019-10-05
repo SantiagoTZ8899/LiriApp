@@ -14,16 +14,37 @@ let fs = require("fs");
 let keys = require("./keys.js");
 
 // Initialize Spotify
-let Spotify = require("node-spotify-app");
+let Spotify = require("node-spotify-api");
 let spotify = new Spotify(keys.spotify);
 
 // OMDB and Bands In Town APIs - from keys.js - provided
-let omdb = require(keys.omdb);
-let bandsintown = require(keys.bandsintown);
+// let omdb = require(keys.omdb);
+// let bandsintown = require(keys.bandsintown);
 
 // taki in arguments
 let userPath = process.argv[2];
 let userSearch = process.argv.slice(3).join(" ");
+
+function concertThis() {
+    let URL = "https://rest.bandsintown.com/artists/" + userSearch + "/events?app_id=codingbootcamp";
+        // console.log(URL);
+
+    axios.get(URL).then(function(response) {
+        // console.log(response)
+        let concertData = response.data;
+        // loop through the info and grab only what needs to be displayed
+        for (let i = 0; i < concertData.length; i++) {
+            let concert = concertData[i];
+                console.log("The concert is in " + concert.venue.region + ", " + concert.venue.country + " at " + concert.venue.name + moment(concert.datetime).format(" MM/DD/YYYY"));
+        }
+        // console.log(concertData)
+    });
+};
+
+function movieThis() {
+    let URL = 
+}
+
 
 // this should determing what the user will actually search, and each option is its own function
 function userAction(userPath, userSearch) {
@@ -46,19 +67,3 @@ function userAction(userPath, userSearch) {
     }
 }
 userAction(userPath, userSearch);
-
-
-function concertThis() {
-    let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-        console.log(URL);
-
-    axios.get(URL).then(function(response) {
-        let concertData = [
-            "Artists: " + response.data.lineup,
-            "Venue: " + response.data.venue,
-            "Venue Location: " + response.data.city,
-            "Event Date: " + moment(concertData.response.data.datetime).format("MM/DD/YYYY hh:00 A")
-        ].join("\n\n");
-        console.log(concertDate)
-    });
-}
