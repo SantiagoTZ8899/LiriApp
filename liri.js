@@ -14,8 +14,8 @@ let fs = require("fs");
 let keys = require("./keys.js");
 
 // Initialize Spotify
-let spotify = require("node-spotify-api");
-// let spotify = new Spotify(keys.spotify);
+let Spotify = require("node-spotify-api");
+let spotify = new Spotify(keys.spotify);
 
 // taking in arguments
 let userPath = process.argv[2];
@@ -31,8 +31,11 @@ function concertThis() {
         // loop through the info and grab only what needs to be displayed
         for (let i = 0; i < concertData.length; i++) {
             let concert = concertData[i];
+                console.log("-----------------------------------");
                 console.log("The concert is in " + concert.venue.region + ", " + concert.venue.country + " at " + concert.venue.name + moment(concert.datetime).format(" MM/DD/YYYY"));
-        }
+                console.log("-----------------------------------");
+
+            }
         // console.log(concertData)
     });
 };
@@ -40,24 +43,34 @@ function concertThis() {
 function spotifyThisSong() {
     if (!userSearch) {
         userSearch = "The Sign Ace of Base";
-
+        
         spotify.search( {
             type: "track",
-            query: userSearch
+            query: userSearch,
+            limit: 1
         },
         function(error, data) {
             if (error) {
-                console.log("Derp, there was an error" + error);
-                    return;
+                return console.log("Derp, there was an error: " + error);
             }
             let songResults = data.tracks.items;
             for (let i = 0; i < songResults.length; i++) {
-                console.log(i);
+                // console.log(songResults);
+                console.log("-----------------------------------");
+                console.log("Artist(s): " + songResults[i].artists[0].name);
+                console.log("Song Name: " + songResults[i].name);
+                console.log("Preview Link: " + songResults[i].preview_url);
+                console.log("Album: " + songResults[i].album.name);
+                console.log("-----------------------------------");
             }
-            console.log(songResults);
-        } )
-    }
+        } 
+    );
 };
+};
+        // Artist(s)
+        // * The song's name
+        // * A preview link of the song from Spotify
+        // * The album that the song is from
 
 function movieThis() {
     if (!userSearch) {
@@ -68,6 +81,7 @@ function movieThis() {
     axios.get(URL).then(function(response) {
         let movieData = response.data;
         // console.log(movieData);
+        console.log("-----------------------------------");
         console.log("Title: " + movieData.Title);
         console.log("Year: " + movieData.Year);
         console.log("IMDB Rating: " + movieData.Ratings[0].Value);
@@ -76,6 +90,8 @@ function movieThis() {
         console.log("Language: " + movieData.Language);
         console.log("Plot: " + movieData.Plot);
         console.log("Actors: " + movieData.Actors);
+        console.log("-----------------------------------");
+
     });
 };
     //    * Title of the movie.
@@ -86,6 +102,22 @@ function movieThis() {
     //    * Language of the movie.
     //    * Plot of the movie.
     //    * Actors in the movie.
+
+// this next function should read the random.txt text file
+
+function doWhatItSays() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            console.log(error);
+        }
+        let dataText = data.split(",");
+
+        // get the info from random.txt and turn into arguments to run in all the functions
+        userPath = dataText[0];
+        userSearch = dataText[1];  
+        userAction(userPath, userSearch);      
+    });
+};
 
 // this should determing what the user will actually search, and each option is its own function
 function userAction(userPath, userSearch) {
