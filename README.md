@@ -23,7 +23,11 @@ Liri is an application for the command line that takes in user commands and sear
 
 #### Screenshots of working app
 
-1. ![concert-this](/images/concert-this.png)
-2. ![spotify-this-song](/images/spotify-this-song.png)
-3. ![movie-this](/images/movie-this.png)
-4. ![do-what-it-says](/images/do-what-it-says.png)
+1. concert-this
+![concert-this](/images/concert-this.png)
+2. spotify-this-song
+![spotify-this-song](/images/spotify-this-song.png)
+3. movie-this
+![movie-this](/images/movie-this.png)
+4. do-what-it-says
+![do-what-it-says](/images/do-what-it-says.png)
