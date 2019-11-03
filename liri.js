@@ -43,13 +43,15 @@ function concertThis() {
 function spotifyThisSong() {
     if (!userSearch) {
         userSearch = "The Sign Ace of Base";
-        
+    }
         spotify.search( {
             type: "track",
-            query: userSearch,
-            limit: 1
+            query: userSearch
+            // limit: 1
         },
         function(error, data) {
+ 
+
             if (error) {
                 return console.log("Derp, there was an error: " + error);
             }
@@ -62,11 +64,11 @@ function spotifyThisSong() {
                 console.log("Preview Link: " + songResults[i].preview_url);
                 console.log("Album: " + songResults[i].album.name);
                 console.log("-----------------------------------");
+            
             }
         } 
     );
-};
-};
+}
         // Artist(s)
         // * The song's name
         // * A preview link of the song from Spotify
@@ -105,19 +107,52 @@ function movieThis() {
 
 // this next function should read the random.txt text file
 
-function doWhatItSays() {
-    fs.readFile("random.txt", "utf8", function (error, data) {
-        if (error) {
-            console.log(error);
-        }
-        let dataText = data.split(",");
+// function doWhatItSays() {
+//     fs.readFile("random.txt", "utf8", function (error, data) {
+//         if (error) {
+//             return console.log(error);
+//         }
+//         let dataText = data.split(",");
 
-        // get the info from random.txt and turn into arguments to run in all the functions
-        userPath = dataText[0];
-        userSearch = dataText[1];  
-        userAction(userPath, userSearch);      
-    });
-};
+//         // get the info from random.txt and turn into arguments to run in all the functions
+//         userPath = dataText[0];
+//         userSearch = dataText[1];  
+//         // userAction(userPath, userSearch);      
+//     });
+// };
+
+// read file from random.txt
+function doWhatItSays() {
+   fs.readFile(“random.txt”, “utf8", function(error, data) {
+       if (error) {
+           return console.log(error);
+       }
+       var result = data.split(“,”);
+       //result from file
+       if (result[0] === “spotify-this-song”) {
+           var song = result[1].slice(1, -1);
+           spotifyThisSong(song);
+       } else if (result[0] === “my-tweets”) {
+           var tweetAcnt = result[1].slice(1, -1);
+           myTwitter(tweetAcnt);
+       } else if (result[0] === “movie-this”) {
+           var movie = result[1].slice(1, -1);
+           movieThis(movie);
+       }
+   });
+}
+
+let result = data.split(",");
+       let newCommand = result[0];
+       let newInput = result[1];
+       console.log(newCommand, newInput);
+       if (newCommand === "spotify-this-song"){
+           spotifyThis(newInput);
+       } else if(newCommand === "movie-this"){
+           movieThis(newInput);
+       } else if(newCommand === "concert-this"){
+           concertThis(newInput)
+       }
 
 // this should determing what the user will actually search, and each option is its own function
 function userAction(userPath, userSearch) {
@@ -132,7 +167,7 @@ function userAction(userPath, userSearch) {
             movieThis();
                 break;
         case "do-what-it-says":
-            doWhatItSays(userSearch);
+            doWhatItSays();
                 break;
         default:
             console.log("Derp-a-Derp-Derp");
